@@ -362,7 +362,7 @@ hr {
 }
 
 /* Services Item */
-.services-item {
+.features-item {
   padding: 15px;
   border-radius: 4px;
   text-align: left;
@@ -372,7 +372,7 @@ hr {
   -o-transition: all 0.3s ease-in-out 0s;
 }
 
-.services-item .icon i {
+.features-item .icon i {
   font-size: 42px;
   width: 42px;
   display: block;
@@ -380,19 +380,19 @@ hr {
   color: #137ED9;
 }
 
-.services-item .services-content h3 {
+.features-item .features-content h3 {
   margin-top: 10px;
   font-weight: 500;
   margin-bottom: 10px;
 }
 
-.services-item .services-content h3 a {
+.features-item .features-content h3 a {
   font-size: 15px;
   text-transform: uppercase;
   color: #585b60;
 }
 
-.services-item .services-content h3 a:hover {
+.features-item .features-content h3 a:hover {
   color: #137ED9;
 }
 
@@ -826,23 +826,23 @@ hr {
 /* ==========================================================================
    Pricing Table Style
    ========================================================================== */
-#pricing {
+#services {
   text-align: center;
 }
 
-#pricing .title {
+#services .title {
   padding-top: 25px;
   padding-bottom: 25px;
 }
 
-#pricing .title h3 {
+#services .title h3 {
   text-transform: uppercase;
   color: #137ED9;
   font-size: 15px;
   margin-bottom: 0px;
 }
 
-#pricing .table {
+#services .table {
   margin-top: 30px;
   padding-bottom: 30px;
   border-radius: 4px;
@@ -854,22 +854,22 @@ hr {
   transition: all .3s linear;
 }
 
-#pricing .table .icon {
+#services .table .icon {
   padding-top: 30px;
 }
 
-#pricing .table .icon i {
+#services .table .icon i {
   color: #137ED9;
   font-size: 42px;
 }
 
-#pricing .table .pricing-header {
+#services .table .services-header {
   position: relative;
   padding-bottom: 20px;
   text-align: center;
 }
 
-#pricing .table .pricing-header .price-value {
+#services .table .services-header .price-value {
   font-size: 24px;
   color: #585b60;
   position: relative;
@@ -878,42 +878,42 @@ hr {
   line-height: 62px;
 }
 
-#pricing .table .pricing-header .price-value sup {
+#services .table .services-header .price-value sup {
   font-size: 18px;
   font-weight: 500;
   top: -18px;
 }
 
-#pricing .table .pricing-header .price-value span {
+#services .table .services-header .price-value span {
   font-size: 14px;
   font-weight: 500;
 }
 
-#pricing .table .description {
+#services .table .description {
   text-align: center;
   padding: 0px 50px;
   margin-bottom: 20px;
   height: 200px;
 }
 
-#pricing .table .description li {
+#services .table .description li {
   font-size: 14px;
   font-weight: 400;
   color: #abacae;
   padding-bottom: 15px;
 }
 
-#pricing .table:hover {
+#services .table:hover {
   background: #f8f9fb;
   box-shadow: 0px 2px 18px 0px rgba(198, 198, 198, 0.3);
 }
 
-#pricing #active-tb {
+#services #active-tb {
   background: #f8f9fb;
   box-shadow: 0px 2px 18px 0px rgba(198, 198, 198, 0.3);
 }
 
-#pricing .active {
+#services .active {
   z-index: 99999;
 }
 
@@ -1120,35 +1120,35 @@ textarea {
   opacity: 1;
 }
 
-.contact-form-area h2 {
+.details-form-area h2 {
   font-size: 18px;
   text-transform: uppercase;
 }
 
-.contact-right-area {
+.details-right-area {
   margin-left: 50px;
 }
 
-.contact-right {
+.details-right {
   padding: 4px;
 }
 
-.contact-right .single-contact {
+.details-right .single-details {
   margin: 20px 0px;
   padding: 3px 55px;
   position: relative;
   color: #abacae;
 }
 
-.contact-right .single-contact p {
+.details-right .single-details p {
   margin-bottom: 5px;
 }
 
-.contact-right .single-contact p a {
+.details-right .single-details p a {
   color: #abacae;
 }
 
-.contact-right .contact-icon {
+.details-right .details-icon {
   background: #137ED9;
   color: #fff;
   border-radius: 50%;
@@ -1164,12 +1164,12 @@ textarea {
   width: 40px;
 }
 
-#contact {
+#details {
   position: relative;
   overflow: hidden;
 }
 
-#contact #contactForm {
+#details #contactForm {
   margin-top: 30px;
 }
 

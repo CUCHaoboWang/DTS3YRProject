@@ -3,7 +3,7 @@
   #hero-area .contents .head-title {
     font-size: 40px;
   }
-  .services-item .services-content h3 a {
+  .features-item .features-content h3 a {
     font-size: 14px;
   }
   .title-hl {
@@ -20,13 +20,13 @@
     font-size: 30px;
     margin-bottom: 30px;
   }
-  .services-item .services-content h3 a {
+  .features-item .features-content h3 a {
     font-size: 14px;
   }
-  .services-item {
+  .features-item {
     margin-bottom: 20px;
   }
-  #pricing-table .title h3 {
+  #services-table .title h3 {
     font-size: 14px;
   }
 }
@@ -37,7 +37,7 @@
     font-size: 26px;
     margin-bottom: 30px;
   }
-  .services-item .services-content h3 a {
+  .features-item .features-content h3 a {
     font-size: 16px;
   }
   #about .sec-title h3 {
@@ -53,7 +53,7 @@
   .why .content h3 {
     font-size: 30px;
   }
-  #pricing-table .title h3 {
+  #services-table .title h3 {
     font-size: 14px;
   }
   .testimonial-item {
@@ -71,7 +71,7 @@
   .footer-area .footer-title {
     margin-top: 30px;
   }
-  .contact-right-area {
+  .details-right-area {
     margin-top: 30px;
   }
 }
@@ -134,17 +134,17 @@
     font-size: 16px;
     line-height: 28px;
   }
-  .footer-right-contact .single-contact {
+  .footer-right-details .single-details {
     margin: 10px 7px;
     padding: 3px 45px;
   }
   .footer-area .footer-title {
     margin-top: 30px;
   }
-  .contact-right-area {
+  .details-right-area {
     margin: 20px 0;
   }
-  .contact-form-area h2 {
+  .details-form-area h2 {
     font-size: 14px;
   }
 }

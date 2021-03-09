@@ -1,19 +1,18 @@
 <app-nav-menu></app-nav-menu>
-
-<!-- Services Section Start -->
-<section id="services" class="section-padding">
+<!-- Features Section Start -->
+<section id="features" class="section-padding">
   <div class="container">
     <div class="section-header text-center">
-      <h2 class="section-title wow fadeInDown" data-wow-delay="0.2s">Our Services</h2>
+      <h2 class="section-title wow fadeInDown" data-wow-delay="0.2s">Features</h2>
     </div>
     <div class="row">
       <!-- Services item -->
       <div class="col-md-6 col-lg-4 col-xs-12">
-        <div class="services-item wow fadeInRight" data-wow-delay="0.2s">
+        <div class="features-item wow fadeInRight" data-wow-delay="0.2s">
           <div class="icon">
             <i class="lni-cog"></i>
           </div>
-          <div class="services-content">
+          <div class="features-content">
             <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur...</p>
           </div>
@@ -21,11 +20,11 @@
       </div>
       <!-- Services item -->
       <div class="col-md-6 col-lg-4 col-xs-12">
-        <div class="services-item wow fadeInRight" data-wow-delay="0.4s">
+        <div class="features-item wow fadeInRight" data-wow-delay="0.4s">
           <div class="icon">
             <i class="lni-bar-chart"></i>
           </div>
-          <div class="services-content">
+          <div class="features-content">
             <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur...</p>
           </div>
@@ -33,11 +32,11 @@
       </div>
       <!-- Services item -->
       <div class="col-md-6 col-lg-4 col-xs-12">
-        <div class="services-item wow fadeInRight" data-wow-delay="0.6s">
+        <div class="features-item wow fadeInRight" data-wow-delay="0.6s">
           <div class="icon">
             <i class="lni-briefcase"></i>
           </div>
-          <div class="services-content">
+          <div class="features-content">
             <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur...</p>
           </div>
@@ -45,11 +44,11 @@
       </div>
       <!-- Services item -->
       <div class="col-md-6 col-lg-4 col-xs-12">
-        <div class="services-item wow fadeInRight" data-wow-delay="0.8s">
+        <div class="features-item wow fadeInRight" data-wow-delay="0.8s">
           <div class="icon">
             <i class="lni-pencil-alt"></i>
           </div>
-          <div class="services-content">
+          <div class="features-content">
             <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur...</p>
           </div>
@@ -57,11 +56,11 @@
       </div>
       <!-- Services item -->
       <div class="col-md-6 col-lg-4 col-xs-12">
-        <div class="services-item wow fadeInRight" data-wow-delay="1.0s">
+        <div class="features-item wow fadeInRight" data-wow-delay="1.0s">
           <div class="icon">
             <i class="lni-mobile"></i>
           </div>
-          <div class="services-content">
+          <div class="features-content">
             <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur...</p>
           </div>
@@ -69,11 +68,11 @@
       </div>
       <!-- Services item -->
       <div class="col-md-6 col-lg-4 col-xs-12">
-        <div class="services-item wow fadeInRight" data-wow-delay="1.2s">
+        <div class="features-item wow fadeInRight" data-wow-delay="1.2s">
           <div class="icon">
             <i class="lni-layers"></i>
           </div>
-          <div class="services-content">
+          <div class="features-content">
             <h3><a href="#">Lorem ipsum dolor sit amet</a></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde perspiciatis dicta labore nulla beatae quaerat quia incidunt laborum aspernatur...</p>
           </div>
@@ -82,25 +81,65 @@
     </div>
   </div>
 </section>
-<!-- Services Section End -->
+<!-- Features Section End -->
+<!-- Details Section Start -->
+<section id="details" class="section-padding pb-1">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="section-title wow fadeInDown" data-wow-delay="0.4s">Services</h2>
+    </div>
+    <div class="row details-form-area wow fadeInUp" data-wow-delay="0.4s">
+      <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="details-block">
+          <form [formGroup]="roomForm" novalidate (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="roomError" id="requiredNameError" *ngIf="roomForm.get('roomName').hasError('required')">
+                    Room name is <strong>required</strong>
+                  </div>
+                  <div class="roomError" id="shortNameError" *ngIf="roomForm.get('roomName').hasError('minlength')">
+                    Room name is <strong>too short</strong>
+                  </div>
+                  <input type="text"
+                         formControlName="roomName" required
+                         placeholder="Enter Room Name"
+                         class="form-control">
+                  <input type="hidden"
+                         formControlName="roomType" required
+                         placeholder="Room Type"
+                         class="form-control">
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                  <button class="btn btn-common" (click)="generateRandomName()">Generate Random Name</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Details Section End -->
 <!-- Services Table Section Start -->
-<section id="pricing" class="section-padding">
+<section id="services" class="section-padding pt-1">
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-6 col-xs-12">
-        <div class="table wow fadeInLeft" data-wow-delay="1.2s">
+        <div class="table wow fadeInLeft" data-wow-delay="0.8s">
           <div class="title">
             <h3>One-To-One</h3>
           </div>
-          <div class="pricing-header">
-            <p class="price-value">Lorem ipsum dolor</p>
+          <div class="services-header">
+            <p class="price-value">Video Call</p>
           </div>
           <ul class="description">
             <li>Lorem ipsum dolor sit amet</li>
             <li>Lorem ipsum dolor sit amet</li>
             <li>Lorem ipsum dolor sit amet</li>
           </ul>
-          <button class="btn btn-common">Get Started</button>
+          <button class="btn btn-common" (click)="goToVideoCall()">Get Started</button>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-xs-12 active">
@@ -108,15 +147,15 @@
           <div class="title">
             <h3>One-To-Many</h3>
           </div>
-          <div class="pricing-header">
-            <p class="price-value">Lorem ipsum dolor</p>
+          <div class="services-header">
+            <p class="price-value">Video Streaming</p>
           </div>
           <ul class="description">
             <li>Lorem ipsum dolor sit amet</li>
             <li>Lorem ipsum dolor sit amet</li>
             <li>Lorem ipsum dolor sit amet</li>
           </ul>
-          <button class="btn btn-common">Get Started</button>
+          <button class="btn btn-common" (click)="goToVideoStreaming()">Get Started</button>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-xs-12">
@@ -124,68 +163,22 @@
           <div class="title">
             <h3>Many-To-Many</h3>
           </div>
-          <div class="pricing-header">
-            <p class="price-value">Lorem ipsum dolor</p>
+          <div class="services-header">
+            <p class="price-value">Video Conferencing</p>
           </div>
           <ul class="description">
             <li>Lorem ipsum dolor sit amet</li>
             <li>Lorem ipsum dolor sit amet</li>
             <li>Lorem ipsum dolor sit amet</li>
           </ul>
-          <button class="btn btn-common">Get Started</button>
+          <button class="btn btn-common" (click)="goToVideoConferencing()">Get Started</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 <!-- Services Table Section End -->
-<!-- Footer Section Start -->
-<footer id="footer" class="footer-area section-padding">
-  <div class="container">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 wow fadeInUp" data-wow-delay="0.2s">
-          <div class="footer-logo mb-3">
-            <h5>DTS3YR Project</h5>
-          </div>
-          <p>Cross-platform Decentralized Video Conferencing Tool.</p>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 wow fadeInUp" data-wow-delay="0.4s">
-          <h3 class="footer-title">Project Management</h3>
-          <ul>
-            <li><a href="#">PRINCE2</a></li>
-            <li><a href="#">Agile</a></li>
-            <li><a href="#">DevOps</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 wow fadeInUp" data-wow-delay="0.6s">
-          <h3 class="footer-title">Research</h3>
-          <ul>
-            <li><a href="#">Angular</a></li>
-            <li><a href="#">WebRTC</a></li>
-            <li><a href="#">Kurento Media Server</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 wow fadeInUp" data-wow-delay="0.8s">
-          <h3 class="footer-title">Find us on</h3>
-          <div class="social-icon">
-            <a class="facebook" href="#"><i class="lni-facebook-filled"></i></a>
-            <a class="twitter" href="#"><i class="lni-twitter-filled"></i></a>
-            <a class="instagram" href="#"><i class="lni-instagram-filled"></i></a>
-            <a class="linkedin" href="#"><i class="lni-linkedin-filled"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-<!-- Footer Section End -->
-
-<!-- Go to Top Link -->
-<a href="#" class="back-to-top">
-  <i class="lni-arrow-up"></i>
-</a>
-
+<app-footer></app-footer>
 <!-- Preloader -->
 <div id="preloader">
   <div class="loader" id="loader-1"></div>
