@@ -1,15 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ScreenType = exports.VideoType = void 0;
-var VideoType;
-(function (VideoType) {
-    VideoType["CAMERA"] = "CAMERA";
-    VideoType["SCREEN"] = "SCREEN";
-    VideoType["CUSTOM"] = "CUSTOM";
-})(VideoType = exports.VideoType || (exports.VideoType = {}));
-var ScreenType;
-(function (ScreenType) {
-    ScreenType["WINDOW"] = "window";
-    ScreenType["SCREEN"] = "screen";
-})(ScreenType = exports.ScreenType || (exports.ScreenType = {}));
+exports.LayoutClass = exports.LayoutType = void 0;
+var LayoutType;
+(function (LayoutType) {
+    LayoutType["ROOT_CLASS"] = "OT_root";
+})(LayoutType = exports.LayoutType || (exports.LayoutType = {}));
+var LayoutClass;
+(function (LayoutClass) {
+    LayoutClass["BIG_ELEMENT"] = "OV_big";
+    LayoutClass["SMALL_ELEMENT"] = "OV_small";
+})(LayoutClass = exports.LayoutClass || (exports.LayoutClass = {}));
 //# sourceMappingURL=video-type.js.map

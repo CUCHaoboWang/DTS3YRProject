@@ -6,8 +6,12 @@ import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+  //styleUrls: ['./home.component.css', './home.component.animate.css', './home.component.bootstrap.css', './home.component.slick.css']
 })
 export class HomeComponent {
+  isExpanded = false;
+
   public roomForm: FormGroup;
 
   constructor(private router: Router, public formBuilder: FormBuilder) { }
@@ -17,10 +21,23 @@ export class HomeComponent {
       roomName: new FormControl('', [Validators.minLength(4), Validators.required]),
       roomType: new FormControl('', Validators.required)
     });
+
+    //const preloader = document.getElementById('preloader');
+    //setTimeout(function () {
+    //  preloader.style.display = 'none';
+    //}, 1500);
+  }
+
+  collapse() {
+    this.isExpanded = false;
+  }
+
+  toggle() {
+    this.isExpanded = !this.isExpanded;
   }
 
   public generateRandomName() {
-    const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals], separator: '-', });
+    const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, animals], separator: '-', });
     this.roomForm.controls['roomName'].setValue(randomName);
   }
 

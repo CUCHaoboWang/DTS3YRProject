@@ -24,33 +24,116 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\nav-menu\app-routing.module.ts" />
+    <None Remove="ClientApp\src\app\shared\components\stream\video.component.ts" />
+    <None Remove="ClientApp\src\app\shared\components\toolbar\logo.component.ts" />
+    <None Remove="ClientApp\src\app\shared\config\custom-cdk-overlay-container.ts" />
+    <None Remove="ClientApp\src\app\shared\forms-matchers\nickname.ts" />
+    <None Remove="ClientApp\src\app\shared\layout\video-layout.ts" />
+    <None Remove="ClientApp\src\app\shared\models\angular-library.ts" />
+    <None Remove="ClientApp\src\app\shared\models\external-config.ts" />
     <None Remove="ClientApp\src\app\shared\models\user-model.ts" />
     <None Remove="ClientApp\src\app\shared\models\video-settings.ts" />
+    <None Remove="ClientApp\src\app\shared\models\webcomponent-model.ts" />
+    <None Remove="ClientApp\src\app\shared\pipes\linkify.ts" />
+    <None Remove="ClientApp\src\app\shared\pipes\tooltipList.pipe.ts" />
+    <None Remove="ClientApp\src\app\shared\pipes\video-settings.pipe.ts" />
+    <None Remove="ClientApp\src\app\shared\services\logger\logger.service.mock.ts" />
+    <None Remove="ClientApp\src\app\shared\services\logger\logger.service.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\services\logger\logger.service.ts" />
+    <None Remove="ClientApp\src\app\shared\services\utils\utils.service.mock.ts" />
+    <None Remove="ClientApp\src\app\shared\services\utils\utils.service.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\services\utils\utils.service.ts" />
+    <None Remove="ClientApp\src\app\shared\types\chat-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\device-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\icon-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\layout-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\linkify-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\logger-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\singal-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\storage-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\username-type.ts" />
     <None Remove="ClientApp\src\app\shared\types\video-settings.ts" />
     <None Remove="ClientApp\src\app\shared\types\video-type.ts" />
+    <None Remove="ClientApp\src\app\shared\types\webcomponent-config.ts" />
+    <None Remove="ClientApp\src\assets\images\favicon.ico" />
+    <None Remove="ClientApp\src\assets\images\favicon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\src\assets\images\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="ClientApp\src\assets\images\favicon.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\components\stream\video.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\components\toolbar\logo.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\config\custom-cdk-overlay-container.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\forms-matchers\nickname.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\layout\video-layout.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\angular-library.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\external-config.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\user-model.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\video-settings.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\webcomponent-model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\pipes\linkify.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\pipes\tooltipList.pipe.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\pipes\video-settings.pipe.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\logger\logger.service.mock.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\logger\logger.service.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\logger\logger.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\utils\utils.service.mock.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\utils\utils.service.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\utils\utils.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\chat-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\device-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\icon-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\linkify-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\logger-type.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\singal-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\storage-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\username-type.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\types\video-settings.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\layout-type.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\shared\types\video-type.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\shared\types\webcomponent-config.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\shared\components\" />
-    <Folder Include="ClientApp\src\app\shared\services\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Update="ClientApp\src\app\shared\types\layout-type - Copy.js">
+      <DependentUpon>layout-type.js</DependentUpon>
+    </None>
+    <None Update="ClientApp\src\app\shared\types\layout-type - Copy.js.map">
+      <DependentUpon>layout-type.js.map</DependentUpon>
+    </None>
+    <None Update="ClientApp\src\app\shared\types\video-type - Copy %282%29.js">
+      <DependentUpon>video-type.js</DependentUpon>
+    </None>
+    <None Update="ClientApp\src\app\shared\types\video-type - Copy %282%29.js.map">
+      <DependentUpon>video-type.js.map</DependentUpon>
+    </None>
+    <None Update="ClientApp\src\app\shared\types\video-type - Copy - Copy.js">
+      <DependentUpon>video-type - Copy.js</DependentUpon>
+    </None>
+    <None Update="ClientApp\src\app\shared\types\video-type - Copy - Copy.js.map">
+      <DependentUpon>video-type - Copy.js.map</DependentUpon>
+    </None>
     <None Update="ClientApp\src\app\shared\types\video-type - Copy.js">
       <DependentUpon>video-type.js</DependentUpon>
     </None>
