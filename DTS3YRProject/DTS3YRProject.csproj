@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -12,8 +12,15 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
   </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+        <TypeScriptExperimentalDecorators>True</TypeScriptExperimentalDecorators>
+        <TypeScriptEmitDecoratorMetadata>True</TypeScriptEmitDecoratorMetadata>
+    </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,16 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\material.module.ts" />
     <None Remove="ClientApp\src\app\shared\components\stream\video.component.ts" />
     <None Remove="ClientApp\src\app\shared\components\toolbar\logo.component.ts" />
     <None Remove="ClientApp\src\app\shared\config\custom-cdk-overlay-container.ts" />
-    <None Remove="ClientApp\src\app\shared\forms-matchers\nickname.ts" />
     <None Remove="ClientApp\src\app\shared\layout\video-layout.ts" />
-    <None Remove="ClientApp\src\app\shared\models\angular-library.ts" />
+    <None Remove="ClientApp\src\app\shared\matchers\username.ts" />
     <None Remove="ClientApp\src\app\shared\models\external-config.ts" />
     <None Remove="ClientApp\src\app\shared\models\user-model.ts" />
     <None Remove="ClientApp\src\app\shared\models\video-settings.ts" />
-    <None Remove="ClientApp\src\app\shared\models\webcomponent-model.ts" />
     <None Remove="ClientApp\src\app\shared\pipes\linkify.ts" />
     <None Remove="ClientApp\src\app\shared\pipes\tooltipList.pipe.ts" />
     <None Remove="ClientApp\src\app\shared\pipes\video-settings.pipe.ts" />
@@ -43,6 +49,8 @@
     <None Remove="ClientApp\src\app\shared\services\utils\utils.service.mock.ts" />
     <None Remove="ClientApp\src\app\shared\services\utils\utils.service.spec.ts" />
     <None Remove="ClientApp\src\app\shared\services\utils\utils.service.ts" />
+    <None Remove="ClientApp\src\app\shared\services\webrtc-firebase\firebase.interface.ts" />
+    <None Remove="ClientApp\src\app\shared\services\webrtc-signalr\signalr.interface.ts" />
     <None Remove="ClientApp\src\app\shared\types\chat-type.ts" />
     <None Remove="ClientApp\src\app\shared\types\device-type.ts" />
     <None Remove="ClientApp\src\app\shared\types\icon-type.ts" />
@@ -72,18 +80,17 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\material.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\components\stream\video.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\components\toolbar\logo.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\config\custom-cdk-overlay-container.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\forms-matchers\nickname.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\matchers\username.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\layout\video-layout.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\models\angular-library.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\external-config.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\user-model.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\video-settings.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\shared\models\webcomponent-model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\pipes\linkify.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\pipes\tooltipList.pipe.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\pipes\video-settings.pipe.ts" />
@@ -93,6 +100,10 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\utils\utils.service.mock.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\utils\utils.service.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\utils\utils.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\webrtc-firebase\firebase.interface.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\webrtc-signalr\signalr.interface.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\types\chat-type.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\types\device-type.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\types\icon-type.ts" />

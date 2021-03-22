@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, HostListener, ElementRef, ViewChild, Output, EventEmitter, ViewContainerRef, OnDestroy } from '@angular/core';
 import { UserModel } from '../../models/user-model';
 import { FormControl, Validators } from '@angular/forms';
-import { NicknameMatcher } from '../../forms-matchers/nickname';
+import { UsernameMatcher } from '../../matchers/username';
 import { UtilsService } from '../../services/utils/utils.service';
 import { LayoutType } from '../../types/layout-type';
 import { VideoSizeIcon, VideoFullscreenIcon } from '../../types/icon-type';
@@ -25,7 +25,7 @@ export class StreamComponent implements OnInit, OnDestroy {
   isFullscreen: boolean;
 
   nicknameFormControl: FormControl;
-  matcher: NicknameMatcher;
+  matcher: UsernameMatcher;
 
   _user: UserModel;
   @Output() nicknameClicked = new EventEmitter<any>();
@@ -71,7 +71,7 @@ export class StreamComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.matcher = new NicknameMatcher();
+    this.matcher = new UsernameMatcher();
   }
 
   ngOnDestroy() {

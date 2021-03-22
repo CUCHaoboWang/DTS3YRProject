@@ -3,8 +3,7 @@
                    [videoSettings]="videoSettings"
                    [externalConfig]="externalConfig"
                    (join)="onConfigRoomJoin()"
-                   (leaveSession)="leaveSession()"
-                   (publisherCreated)="emitPublisher($event)"></app-room-config>
+                   (leaveSession)="leaveSession()"></app-room-config>
 
   <div *ngIf="localUsers && localUsers.length > 0">
     <div *ngIf="isConnectionLost" class="reconnecting-container"></div>
@@ -42,6 +41,7 @@
              [style.top]="(videoSettings | hasToolbar) ? '40px' : '0px'"
              [style.bottom]="(videoSettings | hasFooter) ? '25px' : '0px'"
              [class.boundsLight]="lightTheme">
+
           <div class="OT_root OT_publisher custom-class"
                id="localUser"
                *ngFor="let localUser of localUsers"

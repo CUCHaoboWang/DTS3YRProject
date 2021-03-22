@@ -7,9 +7,9 @@ import { VideoCallComponent } from './video-call/video-call.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
-  { path: 'video-conferencing/:roomName', component: VideoConferencingComponent },
-  { path: 'video-streaming/:roomName', component: VideoStreamingComponent },
-  { path: 'video-call/:roomName', component: VideoCallComponent }
+  { path: 'video-conferencing/:userName/:roomName', component: VideoConferencingComponent },
+  { path: 'video-streaming/:userName/:roomName', component: VideoStreamingComponent },
+  { path: 'video-call/:userName/:roomName', component: VideoCallComponent }
 ];
 
 @NgModule({

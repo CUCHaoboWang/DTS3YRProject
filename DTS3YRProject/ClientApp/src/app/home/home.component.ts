@@ -1,31 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
+import { UtilsService } from '../shared/services/utils/utils.service';
+import { uniqueNamesGenerator, adjectives, animals } from 'unique-names-generator';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
-  //styleUrls: ['./home.component.css', './home.component.animate.css', './home.component.bootstrap.css', './home.component.slick.css']
+  templateUrl: './home.component.html'
 })
 export class HomeComponent {
   isExpanded = false;
 
-  public roomForm: FormGroup;
+  public entryForm: FormGroup;
 
-  constructor(private router: Router, public formBuilder: FormBuilder) { }
+  constructor(private router: Router, private utilsSrv: UtilsService, public formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.roomForm = new FormGroup({
+    this.entryForm = new FormGroup({
+      userName: new FormControl('', [Validators.minLength(4), Validators.required]),
       roomName: new FormControl('', [Validators.minLength(4), Validators.required]),
       roomType: new FormControl('', Validators.required)
     });
-
-    //const preloader = document.getElementById('preloader');
-    //setTimeout(function () {
-    //  preloader.style.display = 'none';
-    //}, 1500);
   }
 
   collapse() {
@@ -37,35 +32,39 @@ export class HomeComponent {
   }
 
   public generateRandomName() {
-    const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, animals], separator: '-', });
-    this.roomForm.controls['roomName'].setValue(randomName);
+    const randomUserName = this.utilsSrv.generateNickname();
+    const randomRoomName = uniqueNamesGenerator({ dictionaries: [adjectives, animals], separator: '-', });
+
+    this.entryForm.controls['userName'].setValue(randomUserName);
+    this.entryForm.controls['roomName'].setValue(randomRoomName);
   }
 
   public goToVideoCall() {
-    this.roomForm.controls['roomType'].setValue('video-call');
+    this.entryForm.controls['roomType'].setValue('video-call');
 
     this.onSubmit();
   }
 
   public goToVideoStreaming() {
-    this.roomForm.controls['roomType'].setValue('video-streaming');
+    this.entryForm.controls['roomType'].setValue('video-streaming');
 
     this.onSubmit();
   }
 
   public goToVideoConferencing() {
-    this.roomForm.controls['roomType'].setValue('video-conferencing');
+    this.entryForm.controls['roomType'].setValue('video-conferencing');
 
     this.onSubmit();
   }
 
   public onSubmit() {
-    if (this.roomForm.valid) {
-      const roomName = this.roomForm.controls['roomName'].value.replace(/ /g, '-'); // replace white spaces by -
-      const roomType = this.roomForm.controls['roomType'].value;
-      this.roomForm.controls['roomName'].setValue(roomName);
+    if (this.entryForm.valid) {
+      const userName = this.entryForm.controls['userName'].value;
+      const roomName = this.entryForm.controls['roomName'].value.replace(/ /g, '-'); // replace white spaces by -
+      const roomType = this.entryForm.controls['roomType'].value;
+      this.entryForm.controls['roomName'].setValue(roomName);
 
-      this.router.navigate(['/' + roomType, roomName]);
+      this.router.navigate(['/' + roomType, userName, roomName]);
     }
   }
 }

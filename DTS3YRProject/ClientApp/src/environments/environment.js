@@ -7,7 +7,17 @@ exports.environment = void 0;
 exports.environment = {
     production: false,
     openvidu_url: '',
-    openvidu_secret: ''
+    openvidu_secret: '',
+    firebase: {
+        apiKey: '<your-key>',
+        authDomain: '<your-project-authdomain>',
+        databaseURL: '<your-database-URL>',
+        projectId: '<your-project-id>',
+        storageBucket: '<your-storage-bucket>',
+        messagingSenderId: '<your-messaging-sender-id>',
+        appId: '<your-app-id>',
+        measurementId: '<your-measurement-id>'
+    }
 };
 /*
  * In development mode, to ignore zone related error stack frames such as

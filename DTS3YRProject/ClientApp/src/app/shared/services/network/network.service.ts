@@ -28,7 +28,9 @@ export class NetworkService {
     }
     try {
       this.log.d('Getting token from backend');
-      //return await this.http.post<any>(this.baseHref + 'call', { sessionId }).toPromise();
+
+      //return await this.http.post<any>(this.baseHref + 'api/session', { sessionId }).toPromise();
+
       return this.createSession(sessionId, openviduServerUrl, openviduSecret).then(
         sessionId => {
           return this.createToken(sessionId, openviduServerUrl, openviduSecret);

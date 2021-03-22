@@ -1,5 +1,5 @@
 export enum Storage {
-  USER_NICKNAME = 'userNickname',
+  USER_NAME = 'userName',
   VIDEO_DEVICE = 'videoDevice',
   AUDIO_DEVICE = 'audioDevice'
 }

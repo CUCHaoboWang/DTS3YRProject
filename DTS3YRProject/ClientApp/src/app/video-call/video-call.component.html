@@ -1,2 +1,34 @@
-<h3>Video call - work in progress</h3>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 
+<nav class="navbar navbar-default"></nav>
+
+<div id="main-container" class="container">
+  <div id="session">
+    <div class="session-header">
+      <h4 id="session-title">Room {{mySessionId}}</h4>
+      <input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" (click)="leaveSession()" value="Leave session">
+    </div>
+    <div id="session-header">
+      <h4 id="session-title">Click on a user to start a session</h4>
+      <div id="buttonStartSession">
+        <app-user-list (userSelected)="initRemoteUser($event)"></app-user-list>
+      </div>
+    </div>
+    <br />
+
+    <h5 class="text-secondary"></h5>
+
+    <div class="row" id="video-container">
+      <div class="stream-container col-md-6 col-xs-6">
+        <p> {{myNickName}} </p>
+        <video #videoPlayerLocal controls></video>
+      </div>
+      <div class="stream-container col-md-6 col-xs-6">
+        <p> Remote User </p>
+        <video #videoPlayerRemote controls></video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"></footer>

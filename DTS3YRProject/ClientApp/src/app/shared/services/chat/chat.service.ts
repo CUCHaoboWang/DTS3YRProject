@@ -32,7 +32,7 @@ export class ChatService {
 
   constructor(
     private loggerSrv: LoggerService,
-    private openViduWebRTCService: WebrtcService,
+    private webRTCService: WebrtcService,
     private localUsersService: LocalUsersService,
     private remoteUsersService: RemoteUsersService,
     private notificationsService: NotificationsService
@@ -48,11 +48,11 @@ export class ChatService {
   }
 
   subscribeToChat() {
-    const session = this.openViduWebRTCService.getWebcamSession();
+    const session = this.webRTCService.getWebcamSession();
     session.on('signal:chat', (event: any) => {
       const connectionId = event.from.connectionId;
       const data = JSON.parse(event.data);
-      const isMyOwnConnection = this.openViduWebRTCService.isMyOwnConnection(connectionId);
+      const isMyOwnConnection = this.webRTCService.isMyOwnConnection(connectionId);
       this.messageList.push({
         isLocal: isMyOwnConnection,
         nickname: data.nickname,
@@ -76,7 +76,7 @@ export class ChatService {
         message: message,
         nickname: this.localUsersService.getWebcamUserName()
       };
-      const sessionAvailable = this.openViduWebRTCService.getSessionOfUserConnected();
+      const sessionAvailable = this.webRTCService.getSessionOfUserConnected();
       sessionAvailable.signal({
         data: JSON.stringify(data),
         type: 'chat'

@@ -19,8 +19,8 @@ export class TokenService {
     this.log = this.loggerSrv.get('TokenService');
   }
 
-  initialize(ovSettings: VideoSettingsModel) {
-    this.videoSettings = ovSettings;
+  initialize(videoSettings: VideoSettingsModel) {
+    this.videoSettings = videoSettings;
   }
 
   setSessionId(sessionId: string) {

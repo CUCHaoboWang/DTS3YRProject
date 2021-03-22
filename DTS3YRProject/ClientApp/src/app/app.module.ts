@@ -1,31 +1,18 @@
 // Core Modules
+import { environment } from 'src/environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 // UI Modules
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatOptionModule } from '@angular/material/core';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { MaterialModule } from './material.module';
 
 // Pipes
 import { LinkifyPipe } from './shared/pipes/linkify';
@@ -52,13 +39,11 @@ import { StreamVideoComponent } from './shared/components/stream/video.component
 import { DialogErrorComponent } from './shared/components/dialog-error/dialog-error.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { RoomConfigComponent } from './shared/components/room-config/room-config.component';
-import { WebComponentComponent } from './web-component/web-component.component';
 import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
 import { ToolbarLogoComponent } from './shared/components/toolbar/logo.component';
 import { VideoConferencingComponent } from './video-conferencing/video-conferencing.component';
 import { VideoStreamingComponent } from './video-streaming/video-streaming.component';
 import { VideoCallComponent } from './video-call/video-call.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 // Services
 import { NetworkService } from './shared/services/network/network.service';
@@ -72,6 +57,7 @@ import { NotificationsService } from './shared/services/notifications/notificati
 import { StorageService } from './shared/services/storage/storage.service';
 import { CdkOverlayContainer } from './shared/config/custom-cdk-overlay-container';
 import { LocalUsersService } from './shared/services/local-users/local-users.service';
+import { UserListComponent } from './video-call/user-list.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +69,6 @@ import { LocalUsersService } from './shared/services/local-users/local-users.ser
     DialogErrorComponent,
     FooterComponent,
     RoomConfigComponent,
-    WebComponentComponent,
     ToolbarComponent,
     ToolbarLogoComponent,
     LinkifyPipe,
@@ -98,10 +83,10 @@ import { LocalUsersService } from './shared/services/local-users/local-users.ser
     HasFooterPipe,
     HasToolbarPipe,
     TooltipListPipe,
-    FetchDataComponent,
     VideoConferencingComponent,
     VideoStreamingComponent,
-    VideoCallComponent
+    VideoCallComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -110,41 +95,26 @@ import { LocalUsersService } from './shared/services/local-users/local-users.ser
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatDialogModule,
-    MatTooltipModule,
-    MatBadgeModule,
-    MatGridListModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatProgressSpinnerModule,
-    MatSliderModule,
-    MatSidenavModule,
-    MatSnackBarModule,
-    MatMenuModule,
-    FlexLayoutModule
+    MaterialModule,
+    FlexLayoutModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence()
   ],
   entryComponents: [
-    DialogErrorComponent,
-    WebComponentComponent
+    DialogErrorComponent
   ],
   providers: [
-    NetworkService,
-    WebrtcService,
-    LocalUsersService,
-    UtilsService,
-    RemoteUsersService,
-    DevicesService,
-    LoggerService,
     ChatService,
-    NotificationsService,
-    StorageService,
     CdkOverlayContainer,
+    DevicesService,
+    NetworkService,
+    LocalUsersService,
+    LoggerService,
+    NotificationsService,
+    RemoteUsersService,
+    StorageService,
+    UtilsService,
+    WebrtcService,
     { provide: OverlayContainer, useClass: CdkOverlayContainer }
   ],
   bootstrap: [AppComponent]

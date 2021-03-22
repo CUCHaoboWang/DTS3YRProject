@@ -9,13 +9,13 @@ export class UtilsServiceMock {
 
   toggleFullscreen(elementId: string) { }
 
-  getOpenViduAvatar(): string {
+  getVideoAvatar(): string {
     return 'avatar';
   }
 
   handlerScreenShareError(error: any) { }
 
-  getOpenviduLayoutOptions(): VideoLayoutOptions {
+  getVideoLayoutOptions(): VideoLayoutOptions {
     const options = {
       maxRatio: 3 / 2, // The narrowest ratio that will be used (default 2x3)
       minRatio: 9 / 15, // The widest ratio that will be used (default 16x9)

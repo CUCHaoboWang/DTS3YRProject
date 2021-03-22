@@ -1,25 +1,27 @@
 import { Component, OnInit, Output, EventEmitter, Input, HostListener, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { UserModel } from '../../models/user-model';
-import { NicknameMatcher } from '../../forms-matchers/nickname';
-import { UtilsService } from '../../services/utils/utils.service';
-import { Publisher } from 'openvidu-browser';
 import { ActivatedRoute, Params } from '@angular/router';
-import { IDevice, CameraType } from '../../types/device-type';
-import { DevicesService } from '../../services/devices/devices.service';
+import { Publisher } from 'openvidu-browser';
 import { Subscription } from 'rxjs';
-import { AvatarType } from '../../types/chat-type';
-import { LoggerService } from '../../services/logger/logger.service';
-import { ILogger } from '../../types/logger-type';
-import { ScreenType } from '../../types/video-type';
+import { UsernameMatcher } from '../../matchers/username';
+
+import { UserModel } from '../../models/user-model';
 import { ExternalConfigModel } from '../../models/external-config';
 import { VideoSettingsModel } from '../../models/video-settings';
-import { StorageService } from '../../services/storage/storage.service';
+import { IDevice, CameraType } from '../../types/device-type';
+import { AvatarType } from '../../types/chat-type';
+import { ILogger } from '../../types/logger-type';
 import { Storage } from '../../types/storage-type';
+import { ScreenType } from '../../types/video-type';
 import { OpenViduErrorName } from 'openvidu-browser/lib/OpenViduInternal/Enums/OpenViduError';
+
+import { UtilsService } from '../../services/utils/utils.service';
 import { WebrtcService } from '../../services/webrtc/webrtc.service';
 import { LocalUsersService } from '../../services/local-users/local-users.service';
 import { TokenService } from '../../services/token/token.service';
+import { DevicesService } from '../../services/devices/devices.service';
+import { LoggerService } from '../../services/logger/logger.service';
+import { StorageService } from '../../services/storage/storage.service';
 import { AvatarService } from '../../services/avatar/avatar.service';
 
 @Component({
@@ -35,9 +37,7 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
   @Output() join = new EventEmitter<any>();
   @Output() leaveSession = new EventEmitter<any>();
 
-  // Webcomponent event
-  @Output() publisherCreated = new EventEmitter<any>();
-
+  myNickName: string;
   mySessionId: string;
 
   cameras: IDevice[];
@@ -48,14 +48,14 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
   isAudioActive = true;
   screenShareEnabled: boolean;
   localUsers: UserModel[] = [];
-  openviduAvatar: string;
+  videoAvatar: string;
   capturedAvatar: string;
   avatarTypeEnum = AvatarType;
   avatarSelected: AvatarType;
   columns: number;
 
   nicknameFormControl = new FormControl('', [Validators.maxLength(25), Validators.required]);
-  matcher = new NicknameMatcher();
+  matcher = new UsernameMatcher();
   hasVideoDevices: boolean;
   hasAudioDevices: boolean;
   showConfigCard: boolean;
@@ -86,7 +86,7 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.subscribeToLocalUsersEvents();
     this.initNicknameAndSubscribeToChanges();
-    this.openviduAvatar = this.avatarService.getVideoAvatar();
+    this.videoAvatar = this.avatarService.getVideoAvatar();
     this.columns = window.innerWidth > 900 ? 2 : 1;
     this.setSessionName();
     await this.devicesService.initDevices();
@@ -94,8 +94,6 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
     if (this.hasAudioDevices || this.hasVideoDevices) {
       await this.initwebcamPublisher();
     } else {
-      // Emit publisher to webcomponent and angular-library
-      this.emitPublisher(null);
       this.showConfigCard = true;
     }
   }
@@ -160,9 +158,7 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
     if (this.localUsersService.areBothConnected()) {
       this.localUsersService.disableWebcamUser();
       this.webRTCService.publishScreenAudio(this.isAudioActive);
-      // !this.subscribeToVolumeChange(<Publisher>this.localUsers[0].getStreamManager());
     } else if (this.localUsersService.isOnlyScreenConnected()) {
-      // (<Publisher>this.localUsers[0].getStreamManager()).off('streamAudioVolumeChange');
       this.localUsersService.enableWebcamUser();
     }
   }
@@ -213,18 +209,17 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
   }
 
   initNicknameAndSubscribeToChanges() {
-    if (this.externalConfig) {
-      this.nicknameFormControl.setValue(this.externalConfig.getNickname());
-      this.localUsersService.updateUsersNickname(this.externalConfig.getNickname());
-      return;
-    }
-    const nickname = this.storageSrv.get(Storage.USER_NICKNAME) || this.utilsSrv.generateNickname();
+    this.route.params.subscribe((params: Params) => {
+      this.myNickName = params.userName;
+    });
+
+    const nickname = this.myNickName || this.storageSrv.get(Storage.USER_NAME);
     this.nicknameFormControl.setValue(nickname);
     this.localUsersService.updateUsersNickname(nickname);
 
     this.nicknameFormControl.valueChanges.subscribe((value) => {
       this.localUsersService.updateUsersNickname(value);
-      this.storageSrv.set(Storage.USER_NICKNAME, value);
+      this.storageSrv.set(Storage.USER_NAME, value);
     });
   }
 
@@ -266,15 +261,14 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
 
   private setSessionName() {
     this.route.params.subscribe((params: Params) => {
-      this.mySessionId = this.externalConfig ? this.externalConfig.getSessionName() : params.roomName;
+      this.mySessionId = params.roomName;
       this.tokenService.setSessionId(this.mySessionId);
     });
   }
 
   private scrollToBottom(): void {
-    try {
-      this.bodyCard.nativeElement.scrollTop = this.bodyCard.nativeElement.scrollHeight;
-    } catch (err) { }
+    try { this.bodyCard.nativeElement.scrollTop = this.bodyCard.nativeElement.scrollHeight; }
+    catch (err) { }
   }
 
   private initScreenPublisher(): Publisher {
@@ -329,10 +323,6 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
     this.handlePublisherError(publisher);
   }
 
-  private emitPublisher(publisher) {
-    this.publisherCreated.emit(publisher);
-  }
-
   private handlePublisherSuccess(publisher: Publisher) {
     publisher.once('accessAllowed', async () => {
       if (this.devicesService.areEmptyLabels()) {
@@ -348,8 +338,6 @@ export class RoomConfigComponent implements OnInit, OnDestroy {
         }
         this.setDevicesInfo();
       }
-      // Emit publisher to webcomponent and angular-library
-      this.emitPublisher(publisher);
 
       if (this.videoSettings.isAutoPublish()) {
         this.joinSession();

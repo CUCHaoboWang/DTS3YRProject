@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Router } from '@angular/router';
 import {
@@ -12,28 +12,27 @@ import {
   ConnectionEvent
 } from 'openvidu-browser';
 
+import { MatSidenav } from '@angular/material/sidenav';
 import { UserModel } from '../shared/models/user-model';
 import { ChatComponent } from '../shared/components/chat/chat.component';
 import { VideoSettingsModel } from '../shared/models/video-settings';
-import { ScreenType, VideoType } from '../shared/types/video-type';
-import { ILogger } from '../shared/types/logger-type';
-import { LayoutType } from '../shared/types/layout-type';
-import { Theme } from '../shared/types/webcomponent-config';
 import { ExternalConfigModel } from '../shared/models/external-config';
+import { ScreenType, VideoType } from '../shared/types/video-type';
+import { UserName } from '../shared/types/username-type';
+import { LayoutType } from '../shared/types/layout-type';
 import { Storage } from '../shared/types/storage-type';
+import { ILogger } from '../shared/types/logger-type';
 
 // Services
-import { MatSidenav } from '@angular/material/sidenav';
 import { DevicesService } from '../shared/services/devices/devices.service';
 import { LoggerService } from '../shared/services/logger/logger.service';
+import { LocalUsersService } from '../shared/services/local-users/local-users.service';
 import { RemoteUsersService } from '../shared/services/remote-users/remote-users.service';
 import { UtilsService } from '../shared/services/utils/utils.service';
 import { ChatService } from '../shared/services/chat/chat.service';
-import { UserName } from '../shared/types/username-type';
 import { StorageService } from '../shared/services/storage/storage.service';
 import { VideoLayoutService } from '../shared/services/layout/layout.service';
 import { TokenService } from '../shared/services/token/token.service';
-import { LocalUsersService } from '../shared/services/local-users/local-users.service';
 import { WebrtcService } from '../shared/services/webrtc/webrtc.service';
 
 @Component({
@@ -44,13 +43,6 @@ import { WebrtcService } from '../shared/services/webrtc/webrtc.service';
 export class VideoConferencingComponent implements OnInit, OnDestroy {
   // Config from webcomponent or angular-library
   @Input() externalConfig: ExternalConfigModel;
-  @Output() _session = new EventEmitter<any>();
-  @Output() _publisher = new EventEmitter<any>();
-  @Output() _error = new EventEmitter<any>();
-
-  @Output() _joinSession = new EventEmitter<any>();
-  @Output() _leaveSession = new EventEmitter<any>();
-
   @ViewChild('chatComponent') chatComponent: ChatComponent;
   @ViewChild('sidenav') chatSidenav: MatSidenav;
 
@@ -76,16 +68,16 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private utilsSrv: UtilsService,
-    private remoteUsersService: RemoteUsersService,
-    private webRTCService: WebrtcService,
-    private localUsersService: LocalUsersService,
     private devicesService: DevicesService,
     private loggerSrv: LoggerService,
+    private localUsersService: LocalUsersService,
+    private remoteUsersService: RemoteUsersService,
+    private utilsSrv: UtilsService,
     private chatService: ChatService,
     private storageSrv: StorageService,
     private videoLayout: VideoLayoutService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private webRTCService: WebrtcService
   ) {
     this.log = this.loggerSrv.get('VideoConferencingComponent');
   }
@@ -105,8 +97,8 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
     this.localUsersService.initialize();
     this.webRTCService.initialize();
 
-    this.lightTheme = this.externalConfig?.getTheme() === Theme.LIGHT;
-    this.videoSettings = !!this.externalConfig ? this.externalConfig.getVideoSettings() : new VideoSettingsModel();
+    this.lightTheme = false;
+    this.videoSettings = new VideoSettingsModel();
     this.videoSettings.setScreenSharing(this.videoSettings.hasScreenSharing() && !this.utilsSrv.isMobile());
   }
 
@@ -153,7 +145,6 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
   async joinToSession() {
     this.webRTCService.initSessions();
     this.session = this.webRTCService.getWebcamSession();
-    this._session.emit(this.session);
     this.sessionScreen = this.webRTCService.getScreenSession();
     this.subscribeToConnectionCreatedAndDestroyed();
     this.subscribeToStreamCreated();
@@ -176,12 +167,11 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
     this.log.d('Leaving session...');
     this.webRTCService.disconnect();
     this.router.navigate(['']);
-    this._leaveSession.emit();
   }
 
   onNicknameUpdate(nickname: string) {
     this.localUsersService.updateUsersNickname(nickname);
-    this.storageSrv.set(Storage.USER_NICKNAME, nickname);
+    this.storageSrv.set(Storage.USER_NAME, nickname);
     this.webRTCService.sendNicknameSignal();
   }
 
@@ -329,7 +319,6 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
       await this.tokenService.initTokens(this.externalConfig);
     } catch (error) {
       this.log.e('There was an error initializing the token:', error.status, error.message);
-      this._error.emit({ error: error.error, messgae: error.message, code: error.code, status: error.status });
       this.utilsSrv.showErrorMessage('There was an error initializing the token:', error.error || error.message);
     }
 
@@ -345,9 +334,6 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
       await this.connectWebcamSession();
       await this.webRTCService.publishWebcamPublisher();
     }
-    // !Deprecated
-    this._joinSession.emit();
-
     this.videoLayout.update();
   }
 
@@ -355,7 +341,6 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
     try {
       await this.webRTCService.connectScreenSession(this.tokenService.getScreenToken());
     } catch (error) {
-      this._error.emit({ error: error.error, messgae: error.message, code: error.code, status: error.status });
       this.log.e('There was an error connecting to the session:', error.code, error.message);
       this.utilsSrv.showErrorMessage('There was an error connecting to the session:', error?.error || error?.message);
     }
@@ -365,7 +350,6 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
     try {
       await this.webRTCService.connectWebcamSession(this.tokenService.getWebcamToken());
     } catch (error) {
-      this._error.emit({ error: error.error, messgae: error.message, code: error.code, status: error.status });
       this.log.e('There was an error connecting to the session:', error.code, error.message);
       this.utilsSrv.showErrorMessage('There was an error connecting to the session:', error?.error || error?.message);
     }
@@ -423,9 +407,9 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
   }
 
   // Emit publisher to webcomponent
-  emitPublisher(publisher: Publisher) {
-    this._publisher.emit(publisher);
-  }
+  //emitPublisher(publisher: Publisher) {
+  //  this._publisher.emit(publisher);
+  //}
 
   private subscribeToStreamPropertyChange() {
     this.session.on('streamPropertyChanged', (event: StreamPropertyChangedEvent) => {
@@ -473,7 +457,7 @@ export class VideoConferencingComponent implements OnInit, OnDestroy {
 
   private subscribeToChatComponent() {
     this.chatSubscription = this.chatService.toggleChatObs.subscribe((opened) => {
-      const timeout = this.externalConfig ? 300 : 0;
+      const timeout = 0;
       this.videoLayout.update(timeout);
     });
   }
