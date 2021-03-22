@@ -6,11 +6,17 @@
   <div id="session">
     <div class="session-header">
       <h4 id="session-title">Room {{mySessionId}}</h4>
-      <input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" (click)="leaveSession()" value="Leave session">
+      <input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" (click)="leaveSession()" value="Leave Session">
     </div>
     <div id="session-header">
-      <h4 id="session-title">Click on the button to start a session</h4>
-      <input class="btn btn-large btn-success" type="button" id="buttonStartSession" (click)="initLocalUser()" value="Start session">
+      <h4 id="session-title">Click on the buttons to start a session</h4>
+      <div id="buttonStartSession">
+        <div class="btn-group" role="group">
+          <button class="btn btn-secondary" type="button" id="buttonCreateOffer" (click)="createOffer()">Create Offer</button>
+          <button class="btn btn-secondary" type="button" id="buttonAnswerOffer" (click)="answerOffer()">Answer Offer</button>
+        </div>
+      </div>
+
     </div>
     <br />
     <div class="row" id="video-container">
@@ -24,17 +30,6 @@
       </div>
     </div>
   </div>
-  <br />
-
-  <h2>2. Create a new Call</h2>
-  <button id="callButton" (click)="createOffer()">Create Offer</button>
-
-  <h2>3. Join a Call</h2>
-  <p>Answer the call from a different browser window or device</p>
-
-  <input id="callInput" type="text" [(ngModel)]="mySessionId" />
-  <button id="buttonAnswerOffer" (click)="answerOffer()">Answer Offer</button>
-
 </div>
 
 <footer class="footer"></footer>

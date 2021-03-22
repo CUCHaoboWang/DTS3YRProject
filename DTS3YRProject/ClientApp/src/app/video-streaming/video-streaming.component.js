@@ -91,6 +91,7 @@ var VideoStreamingComponent = /** @class */ (function () {
             iceCandidatePoolSize: 10,
         };
         this.peerConnection = new RTCPeerConnection(this.servers);
+        this.initLocalUser();
     };
     VideoStreamingComponent.prototype.initLocalUser = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -127,17 +128,6 @@ var VideoStreamingComponent = /** @class */ (function () {
             });
         });
     };
-    //public createSession() {
-    //  this.callDoc.snapshotChanges().forEach((change) => {
-    //    const data = change.payload.data() as DocType;
-    //    console.log('Create Session CallDoc onSnapshotChanges');
-    //    console.log(data);
-    //    if (!this.peerConnection.currentRemoteDescription && data?.answer) {
-    //      const answerDescription = new RTCSessionDescription(data.answer);
-    //      this.peerConnection.setRemoteDescription(answerDescription);
-    //    }
-    //  })
-    //}
     // CREATE OFFER
     VideoStreamingComponent.prototype.createOffer = function () {
         return __awaiter(this, void 0, void 0, function () {

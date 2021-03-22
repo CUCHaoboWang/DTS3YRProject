@@ -12,7 +12,7 @@ import { WebrtcSignalRService } from '../shared/services/webrtc-signalr/webrtc-s
 @Component({
   selector: 'app-user-list',
   template:
-    `<div class="btn-group py-3" role="group">
+    `<div class="btn-group" role="group">
       <button type="button" class="btn btn-secondary" (click)="userClicked(user)" *ngFor="let user of users$ | async">
         {{user.userName}}
       </button>

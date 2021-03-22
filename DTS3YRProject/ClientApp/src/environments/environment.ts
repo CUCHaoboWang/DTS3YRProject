@@ -15,7 +15,6 @@ export const environment = {
     messagingSenderId: '<your-messaging-sender-id>',
     appId: '<your-app-id>',
     measurementId: '<your-measurement-id>'
-
   }
 };
 

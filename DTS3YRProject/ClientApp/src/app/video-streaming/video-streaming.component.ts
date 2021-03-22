@@ -76,6 +76,8 @@ export class VideoStreamingComponent implements OnInit, OnDestroy {
     };
 
     this.peerConnection = new RTCPeerConnection(this.servers);
+
+    this.initLocalUser();
   }
 
   public async initLocalUser() {
@@ -105,21 +107,6 @@ export class VideoStreamingComponent implements OnInit, OnDestroy {
       });
     };
   }
-
-  //public createSession() {
-
-  //  this.callDoc.snapshotChanges().forEach((change) => {
-  //    const data = change.payload.data() as DocType;
-  //    console.log('Create Session CallDoc onSnapshotChanges');
-  //    console.log(data);
-
-  //    if (!this.peerConnection.currentRemoteDescription && data?.answer) {
-  //      const answerDescription = new RTCSessionDescription(data.answer);
-  //      this.peerConnection.setRemoteDescription(answerDescription);
-  //    }
-  //  })
-
-  //}
 
   // CREATE OFFER
   public async createOffer() {

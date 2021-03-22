@@ -6,10 +6,10 @@
   <div id="session">
     <div class="session-header">
       <h4 id="session-title">Room {{mySessionId}}</h4>
-      <input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" (click)="leaveSession()" value="Leave session">
+      <input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" (click)="leaveSession()" value="Leave Session">
     </div>
     <div id="session-header">
-      <h4 id="session-title">Click on a user to start a session</h4>
+      <h4 id="session-title">Click on the buttons to start a session</h4>
       <div id="buttonStartSession">
         <app-user-list (userSelected)="initRemoteUser($event)"></app-user-list>
       </div>

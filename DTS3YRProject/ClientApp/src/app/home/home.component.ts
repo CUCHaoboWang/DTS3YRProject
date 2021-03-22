@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UtilsService } from '../shared/services/utils/utils.service';
-import { uniqueNamesGenerator, adjectives, animals } from 'unique-names-generator';
+import { uniqueNamesGenerator, adjectives, animals  } from 'unique-names-generator';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +33,7 @@ export class HomeComponent {
 
   public generateRandomName() {
     const randomUserName = this.utilsSrv.generateNickname();
-    const randomRoomName = uniqueNamesGenerator({ dictionaries: [adjectives, animals], separator: '-', });
+    const randomRoomName = uniqueNamesGenerator({ dictionaries: [adjectives, animals ], separator: '-', });
 
     this.entryForm.controls['userName'].setValue(randomUserName);
     this.entryForm.controls['roomName'].setValue(randomRoomName);
